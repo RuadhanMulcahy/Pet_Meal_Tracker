@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "333668340023",
+    "firebase_url": "https://petmealtracker.firebaseio.com",
+    "project_id": "petmealtracker",
+    "storage_bucket": "petmealtracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333668340023:android:6a51682337bbbddfd24ab2",
+        "android_client_info": {
+          "package_name": "com.example.Pet_Meal_Tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333668340023-vdsm68623va88r3ravae6qvv7tr6btfn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6WetJ3nHN7AzQHyZQj7onDR9BAtPIzdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333668340023-vdsm68623va88r3ravae6qvv7tr6btfn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

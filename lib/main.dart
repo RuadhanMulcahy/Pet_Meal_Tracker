@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:Pet_Meal_Tracker/Database/datahandler.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,45 +22,28 @@ class _MyAppState extends State<MyApp> {
           title: Text('Welcome to Flutter'),
         ),
         body: 
-          FlatButton(
-            onPressed: () {
-              db.getData();
-            },
-            child: Text(
-              "Flat Button",
-            ),
+          Row(
+            children: <Widget>[
+              FlatButton(
+                onPressed: () {
+                 db.addMeal();
+                },
+                child: Text(
+                  "Add Meal",
+                ),
+              ),
+              FlatButton(
+                onPressed: () {
+                  
+                },
+                child: Text(
+                  "Delete Meal",
+                ),
+              )
+            ]
           )
         ),
     );
   }
 }
 
-class DataHandler {
-
-  final databaseReference = Firestore.instance;
-
-  /*void getData() {
-    databaseReference
-        .collection("Meals")
-        .getDocuments()
-        .then((QuerySnapshot snapshot) {
-            snapshot.documents.forEach((f) => print(f.data));
-    });
-  }*/
-
-  void getData() {
-    databaseReference.collection("meals").getDocuments().then((querySnapshot) {
-    querySnapshot.documents.forEach((result) {
-      print(result.data);
-    });
-  });
-  }
-
-  void addData() {
-    databaseReference.collection("meals").add({
-      "31072020" : "09:00"
-    }).then((value) {
-      print(value.documentID);
-    });
-  }
-}

@@ -26,18 +26,18 @@ class _MyAppState extends State<MyApp> {
             children: <Widget>[
               FlatButton(
                 onPressed: () {
-                 db.addMeal();
+                 db.deleteMeal("20:33");
                 },
                 child: Text(
-                  "Add Meal",
+                  "Delete meal",
                 ),
               ),
               FlatButton(
                 onPressed: () {
-                  
+                 db.addMeal();
                 },
                 child: Text(
-                  "Delete Meal",
+                  "Add Meal",
                 ),
               )
             ]

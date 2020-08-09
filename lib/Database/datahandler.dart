@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:Pet_Meal_Tracker/DateTime/dateTimeHandler.dart';
 
 class DataHandler {
 
   final databaseReference = Firestore.instance;
+  DateTimeHandler dt = new DateTimeHandler();
 
   // Get Meals
   void getMeals() {
@@ -16,18 +18,15 @@ class DataHandler {
   // Add Meal
   void addMeal() {
 
-    var mealTime1 = "9:31";
-    var mealTime2 = "11:44";
-
-    var array = [mealTime1, mealTime2];
+    var mealTime = dt.getTime();
 
     var data = {
-      "02082020": array
+      dt.getDate(): FieldValue.arrayUnion([mealTime]),
     };
 
     databaseReference.collection("Meals")
       .document("rx9zwtilIoMO04XLOw8g")
-        .setData(data).then((value) {
+        .updateData(data).then((value) {
           print("Successful write.");
         }).catchError((error) {
           print(error);
@@ -35,9 +34,19 @@ class DataHandler {
   }
 
   // Delete Meal
-  void deleteMeal(docName, meal) {
-    databaseReference.collection("meals")
-      .document(docName);
+  void deleteMeal(meal) {
+
+    var data = {
+      dt.getDate(): FieldValue.arrayRemove([meal]),
+    };
+
+    databaseReference.collection("Meals")
+      .document("rx9zwtilIoMO04XLOw8g")
+        .updateData(data).then((value) {
+          print("Successfuly removed $meal.");
+        }).catchError((error) {
+          print(error);
+        });
   }
 
   // Add Document

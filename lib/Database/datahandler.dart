@@ -8,15 +8,15 @@ class DataHandler {
 
   // Get Meals
   void getMeals() {
-    databaseReference.collection("meals").getDocuments().then((querySnapshot) {
+    databaseReference.collection("Meals").getDocuments().then((querySnapshot) {
     querySnapshot.documents.forEach((result) {
       print(result.data);
     });
-  });
+    });
   }
-
+  
   // Add Meal
-  void addMeal() {
+  void addMeal(groupName) {
 
     var mealTime = dt.getTime();
 
@@ -25,7 +25,7 @@ class DataHandler {
     };
 
     databaseReference.collection("Meals")
-      .document("rx9zwtilIoMO04XLOw8g")
+      .document(groupName)
         .updateData(data).then((value) {
           print("Successful write.");
         }).catchError((error) {
@@ -49,10 +49,11 @@ class DataHandler {
         });
   }
 
-  // Add Document
-  void addDocument(var1, var2) {
-    databaseReference.collection("meals").add({
-      var1 : var2
+  // Create Group
+  void createGroup(userName) {
+    databaseReference.collection("Meals").add({
+      "admin" : userName,
+      "createdDate" : dt.getDate()
     }).then((value) {
       print(value.documentID);
     });

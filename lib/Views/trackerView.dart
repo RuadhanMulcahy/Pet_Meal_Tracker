@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Pet_Meal_Tracker/Database/datahandler.dart';
 import 'package:Pet_Meal_Tracker/Views/Widgets/mealListWidget.dart';
 
@@ -24,8 +23,30 @@ class _TrackerState extends State<Tracker> {
         body:
           Column(
             children: <Widget>[
-              mealListStream(context)
-            ]
+              mealListStream(context),
+              Row(
+                children: <Widget>[
+                  FlatButton(
+                    onPressed:() {
+                      db.addMeal('K7KP8BwAoEi6HWTiQMeB', 'Siun');
+                    },
+                    child: Text('Add Meal'), 
+                  ),
+                  FlatButton(
+                    onPressed:() {
+                      db.createGroup("Ruadhan");
+                    },
+                    child: Text('Create Group'), 
+                  ),
+                  FlatButton(
+                    onPressed:() {
+                      db.clearMeals();
+                    },
+                    child: Text('Clear meals'), 
+                  )
+                ]
+              )
+             ]
           )
         ),
     );

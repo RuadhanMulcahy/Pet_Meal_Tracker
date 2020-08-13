@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:Pet_Meal_Tracker/DateTime/dateTimeHandler.dart';
-import 'dart:async';
 
 Widget listTile(BuildContext context, DocumentSnapshot data) {
 
@@ -13,22 +12,32 @@ Widget listTile(BuildContext context, DocumentSnapshot data) {
 }
 
 StreamBuilder mealListStream(BuildContext context) {  
+
+    var length;
     
     return StreamBuilder<DocumentSnapshot>(
-      stream: Firestore.instance.collection('Meals')
-      .document('pckT2TNMaE0ep1SLTL5v')
+  
+      stream: Firestore.instance.collection("Meals")
+      .document("K7KP8BwAoEi6HWTiQMeB")
       .snapshots(),
-      builder: (context, snapshot) {
 
-        if(!snapshot.hasData) {
-          return Text('null'); 
+      builder: (context, snapshot) {
+        
+        if(snapshot.data["meals"] != null) {
+          length = snapshot.data["meals"].length;
         }
 
         return Expanded(
           child: ListView.builder(
-            itemCount: snapshot.data['20200810'].length,
+            itemCount: length,
+            shrinkWrap: false,
             itemBuilder: (context, index) {
-              return Text(snapshot.data['20200810'][index]);
+              if(snapshot.data["meals"]!=null) {
+                return Text(snapshot.data["meals"][index]);
+              }
+              else{
+                return Text("Loading...");
+              }
             }
           )
         );

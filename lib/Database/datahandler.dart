@@ -7,21 +7,24 @@ class DataHandler {
   DateTimeHandler dt = new DateTimeHandler();
 
   // Get Meals
-  void getMeals() {
-    databaseReference.collection("Meals").getDocuments().then((querySnapshot) {
-    querySnapshot.documents.forEach((result) {
-      print(result.data);
-    });
-    });
-  }
+  DocumentSnapshot getMeals(groupName) {
+
+    var meals; 
+
+    databaseReference.collection("Meals")
+    .document('K7KP8BwAoEi6HWTiQMeB').get()
+    .then((data) => meals = data);
+    
+    return meals;
+    }
   
   // Add Meal
-  void addMeal(groupName) {
+  void addMeal(groupName, user) {
 
     var mealTime = dt.getTime();
 
     var data = {
-      dt.getDate(): FieldValue.arrayUnion([mealTime]),
+      "meals" : FieldValue.arrayUnion([mealTime + '|' + user]),
     };
 
     databaseReference.collection("Meals")
@@ -31,6 +34,23 @@ class DataHandler {
         }).catchError((error) {
           print(error);
         });
+  }
+
+  // Clear Meals
+  void clearMeals() {
+
+    var data = {
+      "meals": FieldValue.delete(),
+    };
+
+    databaseReference.collection("Meals")
+      .document("K7KP8BwAoEi6HWTiQMeB")
+        .updateData(data).then((value) {
+          addMeal("K7KP8BwAoEi6HWTiQMeB", "Ruadhan");
+        }).catchError((error) {
+          print(error);
+        });
+
   }
 
   // Delete Meal
@@ -52,7 +72,9 @@ class DataHandler {
   // Create Group
   void createGroup(userName) {
     databaseReference.collection("Meals").add({
+      "meals" : {},
       "admin" : userName,
+      "currentDate" : dt.getDate(),
       "createdDate" : dt.getDate()
     }).then((value) {
       print(value.documentID);

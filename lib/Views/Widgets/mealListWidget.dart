@@ -2,12 +2,30 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:Pet_Meal_Tracker/DateTime/dateTimeHandler.dart';
 
-Widget listTile(BuildContext context, DocumentSnapshot data) {
+Widget listTile(context, data) {
 
-  DateTimeHandler dt = new DateTimeHandler();
+  List<String> dataSplit = data.split("");
 
-  return ListTile(
-    title: Text(data['20200810'])
+  var name = dataSplit.sublist(6, dataSplit.length).join();
+  var time = dataSplit.sublist(0, 5).join();
+
+  return Card(
+    child: Row(
+      children: [
+        Expanded(
+          child: Text(name),
+        ),
+        Expanded(
+          child: Text(time),
+        ),
+        Expanded(
+          child: FlatButton(
+            onPressed: () {}, 
+            child: Text('x')
+          )
+        )
+      ],
+    )
   );
 }
 
@@ -33,7 +51,7 @@ StreamBuilder mealListStream(BuildContext context) {
             shrinkWrap: false,
             itemBuilder: (context, index) {
               if(snapshot.data["meals"]!=null) {
-                return Text(snapshot.data["meals"][index]);
+                return listTile(context, snapshot.data["meals"][index]);
               }
               else{
                 return Text("Loading...");
@@ -44,3 +62,5 @@ StreamBuilder mealListStream(BuildContext context) {
       }
     );
 }
+
+// return Text(snapshot.data["meals"][index]);

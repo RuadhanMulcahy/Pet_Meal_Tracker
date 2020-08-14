@@ -57,11 +57,11 @@ class DataHandler {
   void deleteMeal(meal) {
 
     var data = {
-      dt.getDate(): FieldValue.arrayRemove([meal]),
+      'meals': FieldValue.arrayRemove([meal]),
     };
 
     databaseReference.collection("Meals")
-      .document("rx9zwtilIoMO04XLOw8g")
+      .document("K7KP8BwAoEi6HWTiQMeB")
         .updateData(data).then((value) {
           print("Successfuly removed $meal.");
         }).catchError((error) {

@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:Pet_Meal_Tracker/DateTime/dateTimeHandler.dart';
+import 'package:Pet_Meal_Tracker/Database/datahandler.dart';
 
 Widget listTile(context, data) {
 
   List<String> dataSplit = data.split("");
+  DataHandler db = new DataHandler();
 
   var name = dataSplit.sublist(6, dataSplit.length).join();
   var time = dataSplit.sublist(0, 5).join();
@@ -20,7 +22,10 @@ Widget listTile(context, data) {
         ),
         Expanded(
           child: FlatButton(
-            onPressed: () {}, 
+            onPressed: () {
+              db.deleteMeal(time + '|' + name);
+              print(time + '|' + name);
+            }, 
             child: Text('x')
           )
         )
